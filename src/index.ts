@@ -113,16 +113,7 @@ class Multer {
   }
 }
 
-interface MulterFactory {
-  (options?: Options | undefined): Multer
-  contentParser: typeof contentParser
-  diskStorage: typeof diskStorage
-  memoryStorage: typeof memoryStorage
-  MulterError: typeof MulterError
-  default: MulterFactory
-}
-
-const multer: any = function(options?: Options) {
+const multer = function(options?: Options) {
   if (options === undefined) {
     return new Multer({})
   }
@@ -134,10 +125,5 @@ const multer: any = function(options?: Options) {
   throw new TypeError('Expected object for argument options')
 }
 
-multer.contentParser = contentParser
-multer.diskStorage = diskStorage
-multer.memoryStorage = memoryStorage
-multer.MulterError = MulterError
-multer.default = multer
-
-export = multer as MulterFactory
+export default multer
+export { contentParser, diskStorage, memoryStorage, MulterError }
